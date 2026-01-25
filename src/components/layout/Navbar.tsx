@@ -3,9 +3,11 @@ import { Button } from "../ui/button";
 
 const Navbar = () => {
     return (
-        <div className="flex justify-between py-6 text-lg">
+        <div className="flex justify-between py-6 text-lg border-b-2 border-b-black mb-10">
             <div className="font-bold">
-                BookShelf
+                <NavLink to={'/'}>
+                    BookShelf
+                </NavLink>
             </div>
             <div className="flex gap-10">
                 <NavLink to={'/books'}>All Books</NavLink>
