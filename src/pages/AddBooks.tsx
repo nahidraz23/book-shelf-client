@@ -1,7 +1,18 @@
+import { useForm } from 'react-hook-form'
+
 const AddBooks = () => {
+
+    const form = useForm()
+
+    const onSubmit = data => {
+        console.log(data);
+    }
+
     return (
         <div className="container mx-auto">
-            <h1>Add books page</h1>
+         <form onSubmit={form.handleSubmit(onSubmit)}>
+
+         </form>
         </div>
     );
 };
