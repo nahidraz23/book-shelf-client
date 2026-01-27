@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+Library Management System – Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal Library Management System frontend built with React, TypeScript, Redux Toolkit, and RTK Query.
+The application allows users to view books, perform CRUD operations, borrow books, and see a simple borrow summary, all without authentication or payment complexity.
 
-Currently, two official plugins are available:
+This project focuses on clean architecture, proper state management, typed API integration, and a simple UI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
 
-## React Compiler
+📖 View list of available books
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+➕ Add new books
 
-Note: This will impact Vite dev & build performances.
+✏️ Update book details
 
-## Expanding the ESLint configuration
+❌ Delete books
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+📦 Borrow books
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+📊 View borrowed books summary
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+⚡ Fully typed API integration using RTK Query
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🎨 Minimal and responsive UI using Tailwind CSS
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🧠 Project Goals
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Demonstrate RTK Query best practices
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Keep the system simple and readable
+
+Showcase frontend architecture for real-world applications
+
+Focus on client-side state & API handling
+
+Avoid unnecessary complexity (auth, filters, payments)
+
+🛠️ Technology Stack
+Layer	Technology
+Frontend	React + TypeScript
+State Management	Redux Toolkit + RTK Query
+Styling	Tailwind CSS
+Backend (API)	Node.js + Express.js
+Database	MongoDB + Mongoose
+
+🔌 API Integration (RTK Query)
+
+All backend communication is handled using Redux Toolkit Query
+
+APIs are:
+
+Fully typed
+
+Centralized
+
+Auto-cached
+
+Auto-refetched on mutation
