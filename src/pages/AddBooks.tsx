@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useCreateBookMutation } from "@/redux/api/baseApi";
 import { Controller, useForm } from "react-hook-form";
 
@@ -166,7 +167,7 @@ const AddBooks = () => {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Book Description</FieldLabel>
-                  <Input
+                  <Textarea
                     {...field}
                     aria-invalid={fieldState.invalid}
                     placeholder="Please enter the description of the book"
