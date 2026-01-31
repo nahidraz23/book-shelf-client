@@ -13,8 +13,15 @@ export const baseApi = createApi({
                 method: 'POST',
                 body: bookData
             })
+        }),
+        updateBook: builder.mutation({
+            query: ({id, ...updatedData}) => ({
+                url: `/books/${id}`,
+                method: 'PATCH',
+                body: updatedData
+            })
         })
     })
 })
 
-export const {useGetBooksQuery, useCreateBookMutation} = baseApi
+export const {useGetBooksQuery, useCreateBookMutation, useUpdateBookMutation} = baseApi

@@ -22,23 +22,39 @@ import {
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import { useState } from "react";
+import { useUpdateBookMutation } from "@/redux/api/baseApi";
 
 const UpdateBookModal = ({ bookData }) => {
   const form = useForm();
-  const [loadedData, setLoadedData] = useState(undefined);
+  const [updateBook, {isLoading}] = useUpdateBookMutation()
+  // const [loadedData, setLoadedData] = useState(undefined);
 
-  const handleUpdateBook = (data) => {
-    setLoadedData(data);
-  };
+  // const handleUpdateBook = (data) => {
+  //   setLoadedData(data);
+  // };
 
-  const onSubmit = (data) => {
-    console.log("inside on submit", data);
+  const onSubmit = async (data) => {
+    const dirtyFields = form.formState.dirtyFields;
+    const updatedData = Object.keys(dirtyFields).reduce((acc,key) => {
+      acc[key] = data[key];
+      return acc;
+    }, {})
+    
+    await updateBook({
+      id: bookData?._id,
+      ...updatedData
+    }).unwrap()
   };
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) =>{
+      if(open){
+        form.reset(bookData)
+      }
+    }}>
       <DialogTrigger asChild>
-        <Button onClick={() => handleUpdateBook(bookData)}>Edit</Button>
+        {/* <Button onClick={() => handleUpdateBook(bookData)}>Edit</Button> */}
+        <Button>Edit</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-106.25 lg:max-w-5xl">
         <DialogHeader>
@@ -64,7 +80,7 @@ const UpdateBookModal = ({ bookData }) => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Please enter the title of the book"
                       autoComplete="on"
-                      defaultValue={loadedData?.title}
+                      // defaultValue={loadedData?.title}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -83,7 +99,7 @@ const UpdateBookModal = ({ bookData }) => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Please enter the author of the book"
                       autoComplete="off"
-                      defaultValue={loadedData?.author}
+                      // defaultValue={loadedData?.author}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -104,7 +120,7 @@ const UpdateBookModal = ({ bookData }) => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Please enter the genre of the book"
                       autoComplete="off"
-                      defaultValue={loadedData?.genre}
+                      // defaultValue={loadedData?.genre}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -123,7 +139,7 @@ const UpdateBookModal = ({ bookData }) => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Please enter the ISBN of the book"
                       autoComplete="off"
-                      defaultValue={loadedData?.isbn}
+                      // defaultValue={loadedData?.isbn}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -144,7 +160,7 @@ const UpdateBookModal = ({ bookData }) => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Please enter quantity of the book"
                       autoComplete="off"
-                      defaultValue={loadedData?.copies}
+                      // defaultValue={loadedData?.copies}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -162,9 +178,9 @@ const UpdateBookModal = ({ bookData }) => {
                       name={field.name}
                       value={field.value}
                       onValueChange={field.onChange}
-                      defaultValue={
-                        loadedData?.available === true ? "true" : "false"
-                      }
+                      // defaultValue={
+                      //   loadedData?.available === true ? "true" : "false"
+                      // }
                     >
                       <SelectTrigger aria-invalid={fieldState.invalid}>
                         <SelectValue placeholder="Please select the availability of the book" />
@@ -192,7 +208,7 @@ const UpdateBookModal = ({ bookData }) => {
                     aria-invalid={fieldState.invalid}
                     placeholder="Please enter the description of the book"
                     autoComplete="off"
-                    defaultValue={loadedData?.description}
+                    // defaultValue={loadedData?.description}
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -205,7 +221,7 @@ const UpdateBookModal = ({ bookData }) => {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" disabled={isLoading}>Save changes</Button>
           </DialogFooter>
         </form>
       </DialogContent>
