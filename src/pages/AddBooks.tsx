@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateBookMutation } from "@/redux/api/baseApi";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const AddBooks = () => {
   const form = useForm();
@@ -185,6 +186,7 @@ const AddBooks = () => {
         type="submit"
         form="form-add-book"
         className="w-full mt-4"
+        onClick={() => isSuccess ?  toast.success('Book added successfully!') : toast.error('Book could not added!')}
       >
         Submit
       </Button>
