@@ -1,4 +1,4 @@
-import { useGetBooksQuery } from "@/redux/api/baseApi";
+import { useDeleteBookMutation, useGetBooksQuery } from "@/redux/api/baseApi";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -12,6 +12,7 @@ import UpdateBookModal from "@/components/module/UpdateBookModal";
 
 const AllBooks = () => {
   const { data, isLoading } = useGetBooksQuery(undefined);
+  const [deleteBook, {isSuccess}] = useDeleteBookMutation()
 
   if (isLoading) {
     <div>
@@ -69,7 +70,7 @@ const AllBooks = () => {
                   </DropdownMenuContent>
                 </DropdownMenu> */}
                 <UpdateBookModal bookData={book}/>
-                <Button variant={'destructive'}>
+                <Button variant={'destructive'} onClick={() => deleteBook(book?._id)}>
                   Delete
                 </Button>
               </TableCell>
