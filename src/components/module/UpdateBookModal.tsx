@@ -23,10 +23,11 @@ import {
 import { Textarea } from "../ui/textarea";
 import { useState } from "react";
 import { useUpdateBookMutation } from "@/redux/api/baseApi";
+import { toast } from "sonner";
 
 const UpdateBookModal = ({ bookData }) => {
   const form = useForm();
-  const [updateBook, {isLoading}] = useUpdateBookMutation()
+  const [updateBook, {isSuccess, isLoading}] = useUpdateBookMutation()
   const [open, setOpen] = useState(false)
 
   const onSubmit = async (data) => {
@@ -210,7 +211,19 @@ const UpdateBookModal = ({ bookData }) => {
             <DialogClose asChild>
               <Button onClick={() => setOpen(false)} variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit" disabled={isLoading}>Save changes</Button>
+            <Button 
+            type="submit" 
+            disabled={isLoading}
+            onClick={() => isSuccess ? 
+              toast.success('Book data updated',
+                {position: 'top-center'}
+              ) : 
+              toast.error('Could not update book data',
+                {position: 'top-center'}
+              )}
+            >
+              Save changes
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
