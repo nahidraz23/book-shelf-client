@@ -9,10 +9,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import UpdateBookModal from "@/components/module/UpdateBookModal";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 const AllBooks = () => {
   const { data, isLoading } = useGetBooksQuery(undefined);
-  const [deleteBook, {isSuccess}] = useDeleteBookMutation()
+  const [deleteBook, { isSuccess }] = useDeleteBookMutation();
 
   if (isLoading) {
     <div>
@@ -47,32 +48,27 @@ const AllBooks = () => {
                 {book.copies > 0 ? "Available" : "Unavailable"}
               </TableCell>
               <TableCell className="flex gap-2 justify-center">
-                {/* <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="size-8"
-                    >
-                      <MoreHorizontalIcon />
-                      <span className="sr-only">Open menu</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>
-                      
-                    </DropdownMenuItem> 
-                    <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem variant="destructive">
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu> */}
-                <UpdateBookModal bookData={book}/>
-                <Button variant={'destructive'} onClick={() => deleteBook(book?._id)}>
-                  Delete
-                </Button>
+                <UpdateBookModal bookData={book} />
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive">Delete</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete the book data.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => deleteBook(book?._id)}>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </TableCell>
             </TableRow>
           ))}
