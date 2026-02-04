@@ -49,6 +49,7 @@ const AllBooks = () => {
               </TableCell>
               <TableCell className="flex gap-2 justify-center">
                 <UpdateBookModal bookData={book} />
+                <Button variant={'outline'}>Borrow</Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="destructive">Delete</Button>
@@ -65,7 +66,7 @@ const AllBooks = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => deleteBook(book?._id)}>Continue</AlertDialogAction>
+                      <AlertDialogAction variant={'destructive'} onClick={() => deleteBook(book?._id)}>Confirm</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
