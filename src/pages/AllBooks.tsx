@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import UpdateBookModal from "@/components/module/UpdateBookModal";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import BorrowBookModal from "@/components/module/BorrowBookModal";
 
 const AllBooks = () => {
   const { data, isLoading } = useGetBooksQuery(undefined);
@@ -49,7 +50,8 @@ const AllBooks = () => {
               </TableCell>
               <TableCell className="flex gap-2 justify-center">
                 <UpdateBookModal bookData={book} />
-                <Button variant={'outline'}>Borrow</Button>
+                {/* <Button variant={'outline'}>Borrow</Button> */}
+                <BorrowBookModal bookData={book}/>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="destructive">Delete</Button>
