@@ -50,7 +50,6 @@ const AllBooks = () => {
               </TableCell>
               <TableCell className="flex gap-2 justify-center">
                 <UpdateBookModal bookData={book} />
-                {/* <Button variant={'outline'}>Borrow</Button> */}
                 <BorrowBookModal bookData={book}/>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
