@@ -1,4 +1,5 @@
 export interface Book {
+  id: string;
   title: string;
   author: string;
   genre: string;
@@ -9,6 +10,6 @@ export interface Book {
 }
 
 export interface IBorrowBook {
-    quantitty: number,
-    dueDate: Date
+  quantitty: number;
+  dueDate: Date;
 }

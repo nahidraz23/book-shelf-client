@@ -16,20 +16,20 @@ import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
-import type { Book, IBorrowBook } from "@/types/types";
+import type { IBorrowBook } from "@/types/types";
 
-interface BorrowBookModalProps {
-  bookData: Book;
-}
+// interface BorrowBookModalProps {
+//   bookData: Book;
+// }
 
-const BorrowBookModal = ({ bookData }:BorrowBookModalProps) => {
+const BorrowBookModal = () => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState();
   const form = useForm();
 
-  const onSubmit = (data: IBorrowBook) => {
-    console.log("borrow book modal", data, date);
-  };
+  // const onSubmit = (data: IBorrowBook) => {
+  //   console.log("borrow book modal", data, date);
+  // };
 
   return (
     <Dialog open={open}>
@@ -49,7 +49,7 @@ const BorrowBookModal = ({ bookData }:BorrowBookModalProps) => {
             done.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form>
           <FieldGroup>
             <div className="flex gap-6">
               <Controller
@@ -97,7 +97,7 @@ const BorrowBookModal = ({ bookData }:BorrowBookModalProps) => {
                         <Calendar
                           mode="single"
                           selected={date}
-                          onSelect={setDate}
+                          // onSelect={setDate}
                           defaultMonth={date}
                         />
                       </PopoverContent>

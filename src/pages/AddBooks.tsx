@@ -9,14 +9,15 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateBookMutation } from "@/redux/api/baseApi";
+import type { Book } from "@/types/types";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const AddBooks = () => {
-  const form = useForm();
-    const [triggerCreatePost, {isLoading, isSuccess}] = useCreateBookMutation()
+  const form = useForm<Book>();
+    const [triggerCreatePost, { isSuccess}] = useCreateBookMutation()
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: Book) => {
     if(data){
         try {
             await triggerCreatePost(data).unwrap()
