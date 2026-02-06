@@ -11,10 +11,11 @@ import {
 import UpdateBookModal from "@/components/module/UpdateBookModal";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import BorrowBookModal from "@/components/module/BorrowBookModal";
+import type { Book } from "@/types/types";
 
 const AllBooks = () => {
   const { data, isLoading } = useGetBooksQuery(undefined);
-  const [deleteBook, { isSuccess }] = useDeleteBookMutation();
+  const [deleteBook] = useDeleteBookMutation();
 
   if (isLoading) {
     <div>
@@ -38,7 +39,7 @@ const AllBooks = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.map((book) => (
+          {data?.map((book: Book) => (
             <TableRow>
               <TableCell className="font-medium">{book.title}</TableCell>
               <TableCell>{book.author}</TableCell>

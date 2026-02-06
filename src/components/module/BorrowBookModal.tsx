@@ -16,13 +16,18 @@ import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
+import type { Book, IBorrowBook } from "@/types/types";
 
-const BorrowBookModal = ({ bookData }) => {
+interface BorrowBookModalProps {
+  bookData: Book;
+}
+
+const BorrowBookModal = ({ bookData }:BorrowBookModalProps) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState();
   const form = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: IBorrowBook) => {
     console.log("borrow book modal", data, date);
   };
 
@@ -68,7 +73,7 @@ const BorrowBookModal = ({ bookData }) => {
               <Controller
                 name="dueDate"
                 control={form.control}
-                render={({ field, fieldState }) => (
+                render={({ fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel>Due Date</FieldLabel>
                     <Popover>

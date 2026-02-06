@@ -23,13 +23,18 @@ import { Textarea } from "../ui/textarea";
 import { useState } from "react";
 import { useUpdateBookMutation } from "@/redux/api/baseApi";
 import { toast } from "sonner";
+import type { Book } from "@/types/types";
 
-const UpdateBookModal = ({ bookData }) => {
+interface UpdateBookModalProps {
+  bookData: Book;
+}
+
+const UpdateBookModal = ({ bookData }: UpdateBookModalProps) => {
   const form = useForm();
   const [updateBook, {isSuccess, isLoading}] = useUpdateBookMutation()
   const [open, setOpen] = useState(false)
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: UpdateBookModalProps) => {
     const dirtyFields = form.formState.dirtyFields;
     const updatedData = Object.keys(dirtyFields).reduce((acc,key) => {
       acc[key] = data[key];
