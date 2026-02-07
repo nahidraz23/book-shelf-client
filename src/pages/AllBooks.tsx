@@ -51,7 +51,7 @@ const AllBooks = () => {
               </TableCell>
               <TableCell className="flex gap-2 justify-center">
                 <UpdateBookModal bookData={book} />
-                <BorrowBookModal bookData={book}/>
+                <BorrowBookModal />
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="destructive">Delete</Button>

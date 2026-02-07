@@ -134,7 +134,7 @@ const AddBooks = () => {
               )}
             />
             <Controller
-              name="availability"
+              name="available"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>

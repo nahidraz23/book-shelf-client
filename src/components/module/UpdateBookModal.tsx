@@ -30,35 +30,44 @@ interface UpdateBookModalProps {
 }
 
 const UpdateBookModal = ({ bookData }: UpdateBookModalProps) => {
-  const form = useForm();
-  const [updateBook, {isSuccess, isLoading}] = useUpdateBookMutation()
-  const [open, setOpen] = useState(false)
+  const form = useForm<Book>();
+  const [updateBook, { isSuccess, isLoading }] = useUpdateBookMutation();
+  const [open, setOpen] = useState(false);
 
-  const onSubmit = async (data: UpdateBookModalProps) => {
+  const onSubmit = async (data: Book) => {
     const dirtyFields = form.formState.dirtyFields;
-    const updatedData = Object.keys(dirtyFields).reduce((acc,key) => {
-      acc[key] = data[key];
-      return acc;
-    }, {})
+    // const updatedData = (Object.keys(dirtyFields) as (keyof Book)[]).reduce<Partial<Book>>((acc,key) => {
+    //   acc[key] = data[key] as Book[typeof key]
+    //   return acc;
+    // }, {})
 
-    setOpen(false)
-    
+    const updatedData = (Object.keys(dirtyFields) as (keyof Book)[]).reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: data[key],
+      }),
+      {} as Partial<Book>,
+    );
+
+    setOpen(false);
+
     await updateBook({
       id: bookData?._id,
-      ...updatedData
-    }).unwrap()
-
+      ...updatedData,
+    }).unwrap();
   };
 
   return (
-    <Dialog open={open} onOpenChange={(open) =>{
-      if(open){
-        form.reset(bookData)
-      }
-
-    }}>
+    <Dialog
+      open={open}
+      onOpenChange={(open) => {
+        if (open) {
+          form.reset(bookData);
+        }
+      }}
+    >
       <DialogTrigger asChild>
-        <Button onClick={()=>setOpen(true)}>Edit</Button>
+        <Button onClick={() => setOpen(true)}>Edit</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-106.25 lg:max-w-5xl">
         <DialogHeader>
@@ -67,9 +76,7 @@ const UpdateBookModal = ({ bookData }: UpdateBookModalProps) => {
             Make changes to Book here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <div className="flex gap-6">
               <Controller
@@ -167,7 +174,7 @@ const UpdateBookModal = ({ bookData }: UpdateBookModalProps) => {
                 )}
               />
               <Controller
-                name="availability"
+                name="available"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
@@ -213,18 +220,25 @@ const UpdateBookModal = ({ bookData }: UpdateBookModalProps) => {
           </FieldGroup>
           <DialogFooter className="mt-4">
             <DialogClose asChild>
-              <Button onClick={() => setOpen(false)} variant="outline">Cancel</Button>
+              <Button
+                onClick={() => setOpen(false)}
+                variant="outline"
+              >
+                Cancel
+              </Button>
             </DialogClose>
-            <Button 
-            type="submit" 
-            disabled={isLoading}
-            onClick={() => isSuccess ? 
-              toast.success('Book data updated',
-                {position: 'top-center'}
-              ) : 
-              toast.error('Could not update book data',
-                {position: 'top-center'}
-              )}
+            <Button
+              type="submit"
+              disabled={isLoading}
+              onClick={() =>
+                isSuccess
+                  ? toast.success("Book data updated", {
+                      position: "top-center",
+                    })
+                  : toast.error("Could not update book data", {
+                      position: "top-center",
+                    })
+              }
             >
               Save changes
             </Button>

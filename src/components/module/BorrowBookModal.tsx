@@ -18,18 +18,15 @@ import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
 import type { IBorrowBook } from "@/types/types";
 
-// interface BorrowBookModalProps {
-//   bookData: Book;
-// }
-
 const BorrowBookModal = () => {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState();
-  const form = useForm();
+  const [date, setDate] = useState<Date | undefined>(undefined);
+  const form = useForm<IBorrowBook>();
 
-  // const onSubmit = (data: IBorrowBook) => {
-  //   console.log("borrow book modal", data, date);
-  // };
+  const onSubmit = (data: IBorrowBook) => {
+    const updatedData = {date, data}
+    return updatedData
+  };
 
   return (
     <Dialog open={open}>
@@ -49,7 +46,7 @@ const BorrowBookModal = () => {
             done.
           </DialogDescription>
         </DialogHeader>
-        <form>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <div className="flex gap-6">
               <Controller
@@ -60,6 +57,7 @@ const BorrowBookModal = () => {
                     <FieldLabel>Book Quantity</FieldLabel>
                     <Input
                       {...field}
+                      type="number"
                       aria-invalid={fieldState.invalid}
                       placeholder="Please enter the title of the book"
                       autoComplete="off"
@@ -97,7 +95,7 @@ const BorrowBookModal = () => {
                         <Calendar
                           mode="single"
                           selected={date}
-                          // onSelect={setDate}
+                          onSelect={setDate}
                           defaultMonth={date}
                         />
                       </PopoverContent>
